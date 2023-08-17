@@ -41,9 +41,16 @@ function game () {
     let losses = 0;
     let draws = 0;
 
-    playerSelection = 'rock';
+    console.log('please input either rock or paper or scissors')
+    playerSelection = prompt("What's your sign?");
     playerSelection = playerSelection.toLowerCase();
+    console.log(playerSelection)
 
+    if ( (playerSelection !== 'rock') && (playerSelection !== 'paper') && (playerSelection !== 'scissors') )
+    {
+        console.log('invalid input');
+        return 1;
+    }
     let max = 4;
     let min = 1;
     for (let i = 0; i < 5; i++) {
