@@ -22,14 +22,17 @@ function referee(computerSelection, playerSelection){
     let verdict;
     if ((computerSelection == 'rock' && playerSelection == 'scissors') || (computerSelection == 'paper' && playerSelection == 'rock') || (computerSelection == 'scissors' && playerSelection == 'paper'))
     {
-        verdict = `You Lose! ${computerSelection} beats ${playerSelection}`;
+        console.log(`You Lose! ${computerSelection} beats ${playerSelection}`)
+        verdict = 'loss'
     }
     else if ((playerSelection == 'rock' && computerSelection == 'scissors') || (playerSelection == 'paper' && computerSelection == 'rock') || (playerSelection == 'scissors' && computerSelection == 'paper'))
     {
-        verdict = `You Win! ${playerSelection} beats ${computerSelection}`;
+        console.log(`You Win! ${playerSelection} beats ${computerSelection}`)
+        verdict = 'win';
     }
     else{
-        verdict = `Its a draw, please try again`;
+        console.log(`Its a draw, please try again`)
+        verdict = 'draw';
     }
     return verdict;
 }
@@ -41,31 +44,32 @@ function game () {
     let losses = 0;
     let draws = 0;
 
-    console.log('please input either rock or paper or scissors')
-    playerSelection = prompt("What's your sign?");
-    playerSelection = playerSelection.toLowerCase();
-    console.log(playerSelection)
-
-    if ( (playerSelection !== 'rock') && (playerSelection !== 'paper') && (playerSelection !== 'scissors') )
-    {
-        console.log('invalid input');
-        return 1;
-    }
+    
+    
     let max = 4;
     let min = 1;
     for (let i = 0; i < 5; i++) {
-        
+
+        playerSelection = prompt("please input either rock or paper or scissors");
+        playerSelection = playerSelection.toLowerCase();
+        console.log(playerSelection)
+
+        if ( (playerSelection !== 'rock') && (playerSelection !== 'paper') && (playerSelection !== 'scissors') )
+        {
+            console.log('invalid input');
+            return 1;
+        }
+
         computerSelection = getComputerChoice(max, min);
         verdict = referee(computerSelection, playerSelection);
-        console.log(verdict);
 
-        if (verdict == 'Its a draw, please try again'){
+        if (verdict == 'draw'){
             draws++;
         }
-        else if (verdict == 'You Lose! paper beats rock'){
+        else if (verdict == 'loss'){
             losses++;
         }
-        else{
+        else if (verdict == 'win'){
             wins++;
         }
     }
