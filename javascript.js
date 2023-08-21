@@ -39,20 +39,12 @@ function referee(computerSelection, playerSelection){
 
 
 
-function game () {
-    let wins = 0;
-    let losses = 0;
-    let draws = 0;
-
-    
-    
+function game (playerSelection) {
     let max = 4;
     let min = 1;
-    for (let i = 0; i < 5; i++) {
+    
 
-        playerSelection = prompt("please input either rock or paper or scissors");
-        playerSelection = playerSelection.toLowerCase();
-        console.log(playerSelection)
+        console.log('the player selected',playerSelection);
 
         if ( (playerSelection !== 'rock') && (playerSelection !== 'paper') && (playerSelection !== 'scissors') )
         {
@@ -61,21 +53,46 @@ function game () {
         }
 
         computerSelection = getComputerChoice(max, min);
+        console.log('computer selected', computerSelection)
         verdict = referee(computerSelection, playerSelection);
-
-        if (verdict == 'draw'){
-            draws++;
-        }
-        else if (verdict == 'loss'){
-            losses++;
-        }
-        else if (verdict == 'win'){
-            wins++;
-        }
-    }
-
-    console.log(`You have ${wins} wins, ${losses} losses ${draws} draws`)
-
+        return verdict;
 }
 
-game()
+let wins = 0;
+let losses = 0;
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) =>{
+            button.addEventListener('click', (e)=>{
+             let the_verdict = game(e.target.id);
+
+             const content = document.createElement('div');
+            
+
+             if(verdict=='win'){wins++};
+             if(verdict=='loss'){losses++};
+             if(verdict=='draw'){
+                content.textContent = `It was a draw, try again`;
+             }else{
+                content.textContent = `wins: ${wins}, losses: ${losses}`;
+             }
+             if(losses== 5 || wins== 5 )
+             {
+                const more = document.createElement('div');
+                more.innerHTML = `<p> The total scores are!!</p>
+                <p>wins: ${wins}, losses: ${losses}</p>`;
+
+                if(wins==5){
+                    more.innerHTML = '<h2>YOU WIN</h2>';
+                }else{
+                    more.innerHTML = '<h2>YOU LOSE</h2>';
+                }
+                const bodyi = document.querySelector('body');
+                bodyi.appendChild(more);
+                wins = 0;
+                losses = 0;
+             }
+
+             const body = document.querySelector('body');
+             body.appendChild(content);
+        });
+});
